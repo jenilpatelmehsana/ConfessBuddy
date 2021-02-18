@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "448566862039",
+    "project_id": "confess-buddy",
+    "storage_bucket": "confess-buddy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448566862039:android:b4116629c4b4a84fe01092",
+        "android_client_info": {
+          "package_name": "com.example.confessbuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448566862039-bh2dri3rc7u1eflsblhua17njv58gtop.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK0Uwur1pzCLbkDNPXvYC3HRtJ6Cfu9N0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448566862039-bh2dri3rc7u1eflsblhua17njv58gtop.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
