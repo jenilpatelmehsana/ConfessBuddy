@@ -6,15 +6,40 @@ import org.json.JSONObject;
 
 public class User {
 
+    String userID;
     String userEmail;
     String university;
     String city;
     int confessCount = 0;
 
+    public User() { }
+
     public User(String userEmail) {
         this.userEmail = userEmail;
     }
 
+
+
+    public static User objectToUser(Object obj) {
+        User ans = new User();
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(obj.toString());
+            ans.setUserEmail(jsonObject.getString("userEmail"));
+            ans.setUserID(jsonObject.getString("userID"));
+            ans.setUniversity(jsonObject.getString("university"));
+            ans.setConfessCount(jsonObject.getInt("confessCount"));
+            ans.setCity(jsonObject.getString("city"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return ans;
+    }
+
+    //unused methods
     public static JSONObject convertToJson(User user) {
         JSONObject obj = new JSONObject();
         try {
@@ -74,5 +99,13 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

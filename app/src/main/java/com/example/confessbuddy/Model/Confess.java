@@ -6,13 +6,15 @@ import java.util.Date;
 public class Confess {
 
     String confess;
-    Date confessDate;
+    String confessDate;
     String university;
+    String city;
 
-    public Confess(String confess, Date confessDate, String university) {
+    public Confess(String confess, String city  ,String university, String confessDate) {
         this.confess = confess;
         this.confessDate = confessDate;
         this.university = university;
+        this.city = city;
     }
 
 //    getter and settter
@@ -25,11 +27,11 @@ public class Confess {
         this.confess = confess;
     }
 
-    public Date getConfessDate() {
+    public String getConfessDate() {
         return confessDate;
     }
 
-    public void setConfessDate(Date confessDate) {
+    public void setConfessDate(String confessDate) {
         this.confessDate = confessDate;
     }
 
@@ -39,5 +41,13 @@ public class Confess {
 
     public void setUniversity(String university) {
         this.university = university;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

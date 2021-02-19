@@ -18,11 +18,20 @@ public class SignInActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private EditText emailEditText, passwordEditText;
+    private EditText emailEditText,
+            passwordEditText,
+            universityEditText,
+            cityEditText,
+            userIDEditText;
     private Button signInButton;
 
     public void signInButtonOnClick() {
-        CreateAccount.createNewAccount(this, mAuth, emailEditText.getText().toString(), passwordEditText.getText().toString());
+        CreateAccount.createNewAccount(this,
+                mAuth, emailEditText.getText().toString(),
+                userIDEditText.getText().toString(),
+                passwordEditText.getText().toString(),
+                cityEditText.getText().toString(),
+                universityEditText.getText().toString());
         if(mAuth.getCurrentUser() != null) {
             Intent createConfessIntent = new Intent(this, CreateConfess.class);
             startActivity(createConfessIntent);
@@ -30,8 +39,13 @@ public class SignInActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this, "Login Failed \n Try Again", Toast.LENGTH_SHORT).show();
+            /*
             emailEditText.setText("");
             passwordEditText.setText("");
+            universityEditText.setText("");
+            cityEditText.setText("");
+            userIDEditText.setText("");
+            */
         }
     }
 
@@ -56,6 +70,9 @@ public class SignInActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         signInButton = findViewById(R.id.signIn);
+        universityEditText = findViewById(R.id.university);
+        cityEditText = findViewById(R.id.city);
+        userIDEditText = findViewById(R.id.userID);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

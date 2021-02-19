@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.confessbuddy.DBOperations.DBOperations;
+import com.example.confessbuddy.DBOperations.GenerateUniqueConfessID;
+import com.example.confessbuddy.Model.Confess;
 import com.example.confessbuddy.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
+
+import java.util.Date;
 
 public class CreateConfess extends AppCompatActivity {
 
@@ -32,34 +37,7 @@ public class CreateConfess extends AppCompatActivity {
             Toast.makeText(this, "Confess must not be empty", Toast.LENGTH_SHORT).show();
         }
         else {
-//            retriving userData from database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("userDetails");
-            DatabaseReference currentUserRef = myRef.child(mAuth.getCurrentUser().getEmail());
-            currentUserRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    TODO using sharedPreferences
-                    JSONObject userJson = (JSONObject) snapshot.getValue();
-                    User user = User.convertToUser(userJson);
-                    DatabaseReference cityRef = database.getReference(user.getCity() + '/');
-                    DatabaseReference univRef = cityRef.child(user.getUniversity() + '/');
-//                    TODO CONTINUE
-                    DatabaseReference confessRef = univRef.child()
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(CreateConfess.this, "", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-//            DatabaseReference myRef = database.getReference("City/");
-//            DatabaseReference userRef = myRef.child("Silver Oak University");
-//            myRef.setValue(confessText);
-
-//            userRef.setValue(confessText);
+            DBOperations.addConfess(mAuth, confessText);
 
             Toast.makeText(this, "Confess uploaded successfully", Toast.LENGTH_SHORT).show();
         }

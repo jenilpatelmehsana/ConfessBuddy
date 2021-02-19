@@ -17,13 +17,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class CreateAccount extends AccountAvaibility{
 
-    boolean result = false;
-
-    public static void createNewAccount(Context currentActivity, FirebaseAuth mAuth, String email, String password) {
+    public static void createNewAccount(Context currentActivity, FirebaseAuth mAuth, String email, String userID, String password, String city, String university) {
 
 //        TODO
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -31,25 +28,21 @@ public class CreateAccount extends AccountAvaibility{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d("Account Creation Log", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("Account Creation Log", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(currentActivity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                         }
-
-                        // ...
                     }
                 }).addOnSuccessListener((Activity) currentActivity, new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 System.out.println("authentication successful");
                 User currentUser = new User(mAuth.getCurrentUser().getEmail());
+                currentUser.setCity(city);
+                currentUser.setUniversity(university);
+                currentUser.setUserID(userID);
                 DBOperations.addUserDetailsToDB(currentUser);
             }
         }).addOnFailureListener((Activity) currentActivity, new OnFailureListener() {
@@ -59,5 +52,4 @@ public class CreateAccount extends AccountAvaibility{
             }
         });
     }
-
 }
