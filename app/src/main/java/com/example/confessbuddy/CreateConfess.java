@@ -37,7 +37,7 @@ public class CreateConfess extends AppCompatActivity {
             Toast.makeText(this, "Confess must not be empty", Toast.LENGTH_SHORT).show();
         }
         else {
-            DBOperations.addConfess(mAuth, confessText);
+            DBOperations.addConfess(this, mAuth, confessText);
 
             Toast.makeText(this, "Confess uploaded successfully", Toast.LENGTH_SHORT).show();
         }

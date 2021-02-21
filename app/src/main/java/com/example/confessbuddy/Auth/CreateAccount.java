@@ -42,7 +42,7 @@ public class CreateAccount extends AccountAvaibility{
                 User currentUser = new User(mAuth.getCurrentUser().getEmail());
                 currentUser.setCity(city);
                 currentUser.setUniversity(university);
-                currentUser.setUserID(userID);
+                currentUser.setUserID(StringOperations.emailToUserID(mAuth.getCurrentUser().getEmail()));
                 DBOperations.addUserDetailsToDB(currentUser);
             }
         }).addOnFailureListener((Activity) currentActivity, new OnFailureListener() {

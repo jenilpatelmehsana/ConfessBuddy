@@ -39,6 +39,15 @@ public class User {
         return ans;
     }
 
+    public static boolean perfectUser(User user) {
+        if(user.getCity() == null ||
+                user.getUserEmail() == null ||
+                user.getUniversity() == null ||
+                user.getUserID() == null
+        ) return false;
+        return true;
+    }
+
     //unused methods
     public static JSONObject convertToJson(User user) {
         JSONObject obj = new JSONObject();

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.confessbuddy.Auth.CreateAccount;
 import com.example.confessbuddy.Auth.LoginAccount;
+import com.example.confessbuddy.Auth.StringOperations;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -28,7 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     public void signInButtonOnClick() {
         CreateAccount.createNewAccount(this,
                 mAuth, emailEditText.getText().toString(),
-                userIDEditText.getText().toString(),
+                StringOperations.emailToUserID((emailEditText.getText().toString())),
                 passwordEditText.getText().toString(),
                 cityEditText.getText().toString(),
                 universityEditText.getText().toString());
@@ -39,13 +40,11 @@ public class SignInActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this, "Login Failed \n Try Again", Toast.LENGTH_SHORT).show();
-            /*
             emailEditText.setText("");
             passwordEditText.setText("");
             universityEditText.setText("");
             cityEditText.setText("");
             userIDEditText.setText("");
-            */
         }
     }
 
