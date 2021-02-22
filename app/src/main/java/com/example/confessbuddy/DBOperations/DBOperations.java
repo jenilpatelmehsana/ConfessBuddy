@@ -71,7 +71,18 @@ public class DBOperations {
                             .child(GenerateUniqueConfessID.genereateUID(user.getUserID()));
                     Date dateRN = new Date();
                     confessRef.setValue(new Confess(confessText,user.getCity(),user.getUniversity(),String.valueOf(dateRN.getTime())));
+                    try {
+                        ConfessMapping.addConfessToAllMap(confessRef, user);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
+                    new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                        }
+                    }).start();
                  }
             }
 

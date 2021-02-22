@@ -3,6 +3,7 @@ package com.example.confessbuddy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.JsonToken;
 import android.view.View;
@@ -37,8 +38,13 @@ public class CreateConfess extends AppCompatActivity {
             Toast.makeText(this, "Confess must not be empty", Toast.LENGTH_SHORT).show();
         }
         else {
-            DBOperations.addConfess(this, mAuth, confessText);
-
+            Activity activity = this;
+            DBOperations.addConfess(activity, mAuth, confessText);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                }
+            }).start();
             Toast.makeText(this, "Confess uploaded successfully", Toast.LENGTH_SHORT).show();
         }
     }
