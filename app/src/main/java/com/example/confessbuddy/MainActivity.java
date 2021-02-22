@@ -4,18 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.confessbuddy.UI.Authentication.LoginPage;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Intent signInIntent = new Intent(this, SignInActivity.class);
-        startActivity(signInIntent);
-        finish();
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() == null) {
+            //go to login page
+            Intent loginPageIntent = new Intent(this, LoginPage.class);
+            startActivity(loginPageIntent);
+            this.finish();
+        } else {
+            //go to home page
+            Toast.makeText(this, "Goto create Confess Page", Toast.LENGTH_SHORT).show();
+        }
     }
 }
