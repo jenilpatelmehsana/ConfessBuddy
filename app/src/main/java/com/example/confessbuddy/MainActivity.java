@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.confessbuddy.UI.Authentication.LoginPage;
+import com.example.confessbuddy.UI.HomePage.HomePage;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(loginPageIntent);
             this.finish();
         } else {
-            //go to home page
-            Toast.makeText(this, "Goto create Confess Page", Toast.LENGTH_SHORT).show();
+            Intent homePageIntent = new Intent(this, HomePage.class);
+            startActivity(homePageIntent);
+            this.finish();
         }
     }
 }

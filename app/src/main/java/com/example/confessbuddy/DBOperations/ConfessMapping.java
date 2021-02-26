@@ -2,6 +2,7 @@ package com.example.confessbuddy.DBOperations;
 
 import androidx.annotation.NonNull;
 
+import com.example.confessbuddy.Model.Confess;
 import com.example.confessbuddy.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +22,23 @@ public class ConfessMapping {
             JSONObject json = (JSONObject) JSONObject.wrap(obj);
             System.out.println(json);
             return Integer.parseInt(json.getString("lastIndex"));
+        }
+
+        public static Confess objectToUser(Object obj) {
+            JSONObject json = (JSONObject) JSONObject.wrap(obj);
+            String confess = "",
+                    city = "",
+                    university = "",
+                    date = "";
+            try {
+                confess = json.getString("confess");
+                city = json.getString("city");
+                university = json.getString("university");
+                date = json.getString("date");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return new Confess(confess, city, university, date);
         }
     }
 

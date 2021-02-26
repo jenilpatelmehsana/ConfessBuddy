@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_recent">
+
+    <fragment android:id="@+id/navigation_recent"
+        android:name="com.example.confessbuddy.UI.HomePageActivity.Recent.RecentFragment"
+        android:label="Recent"
+        tools:layout="@layout/fragment_recent" />
+
+    <fragment android:id="@+id/navigation_city"
+        android:name="com.example.confessbuddy.UI.HomePageActivity.City.CityFragment"
+        android:label="City"
+        tools:layout="@layout/fragment_city" />
+
+    <fragment android:id="@+id/navigation_university"
+        android:name="com.example.confessbuddy.UI.HomePageActivity.University.UniversityFragment"
+        android:label="University"
+        tools:layout="@layout/fragment_university" />
+
+</navigation>

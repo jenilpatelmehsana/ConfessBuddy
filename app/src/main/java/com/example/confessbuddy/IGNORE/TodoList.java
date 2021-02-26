@@ -16,4 +16,5 @@ public class TodoList {
 //    user login fails on first attempt solve
 //    creating service that queues the data and insert into db one by one to eliminate concurrency
 //    retrieving confesses to make it view
+//    adding vibration on login and create confess
 }

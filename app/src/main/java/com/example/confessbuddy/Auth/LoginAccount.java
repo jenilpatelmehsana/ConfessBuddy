@@ -23,32 +23,20 @@ public class LoginAccount {
                 .addOnCompleteListener((Activity) currentActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                        if (task.isSuccessful())
+                        {
                             Log.d("Account Login Status", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
+                        }
+                        else
+                            {
                             Log.w("Account Login Status", "signInWithEmail:failure", task.getException());
                             Toast.makeText(currentActivity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-                        }
+                            }
 
                     }
-                }).addOnSuccessListener((Activity) currentActivity, new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                System.out.println("Login Success");
-
-            }
-        }).addOnFailureListener((Activity) currentActivity, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                System.out.println("Login Failed0");
-            }
-        });
+                });
     }
 
 }
