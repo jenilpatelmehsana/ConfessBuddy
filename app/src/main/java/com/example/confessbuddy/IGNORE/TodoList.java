@@ -17,4 +17,5 @@ public class TodoList {
 //    creating service that queues the data and insert into db one by one to eliminate concurrency
 //    retrieving confesses to make it view
 //    adding vibration on login and create confess
+//    automatic updating database on delete object solve
 }

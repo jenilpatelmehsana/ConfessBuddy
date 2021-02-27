@@ -1,7 +1,5 @@
 package com.example.confessbuddy.Model;
 
-import java.util.Date;
-
 //TODO
 public class Confess {
 
@@ -9,12 +7,25 @@ public class Confess {
     String confessDate;
     String university;
     String city;
+    String confessID;
 
-    public Confess(String confess, String city  ,String university, String confessDate) {
+    public Confess() {
+
+    }
+
+    public Confess(String confess, String city, String university, String confessDate) {
         this.confess = confess;
         this.confessDate = confessDate;
         this.university = university;
         this.city = city;
+    }
+
+    public Confess(String confess, String city, String university, String confessDate, String confessID) {
+        this.confess = confess;
+        this.confessDate = confessDate;
+        this.university = university;
+        this.city = city;
+        this.confessID = confessID;
     }
 
 //    getter and settter
@@ -49,5 +60,13 @@ public class Confess {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getConfessID() {
+        return confessID;
+    }
+
+    public void setConfessID(String confessID) {
+        this.confessID = confessID;
     }
 }

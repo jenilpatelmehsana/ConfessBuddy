@@ -1,66 +1,101 @@
 package com.example.confessbuddy.UI.HomePageActivity.Recent;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.confessbuddy.Model.Confess;
 import com.example.confessbuddy.R;
+import com.example.confessbuddy.UI.Adapters.RecentConfessAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class RecentFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recentConfessView;
+    public ArrayList<Confess> arrayList;
+    public RecentConfessAdapter arrayAdapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public RecentFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RecentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RecentFragment newInstance(String param1, String param2) {
-        RecentFragment fragment = new RecentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recent, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_recent, container, false);
+        recentConfessView = rootView.findViewById(R.id.recentConfessView);
+        arrayList = new ArrayList<>();
+        recentConfessView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        arrayList = FetchConfessByTime.getList(getContext(), recentConfessView);
+
+
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        db.getReference("/byTime/lastIndex")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int lastIndex = Integer.parseInt(String.valueOf(snapshot.getValue()));
+                        for(int i = lastIndex; i > 0; --i) {
+                            db.getReference("/byTime/" + String.valueOf(i))
+                                    .addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            db.getReference(snapshot.getValue(String.class))
+                                                    .addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            arrayList.add(snapshot.getValue(Confess.class));
+                                                            arrayAdapter.notifyDataSetChanged();
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                        }
+                        for(Confess x: arrayList) {
+                            x.getConfess();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        arrayAdapter = new RecentConfessAdapter(getContext(), arrayList);
+        recentConfessView.setAdapter(arrayAdapter);
+        return rootView;
     }
+
 }

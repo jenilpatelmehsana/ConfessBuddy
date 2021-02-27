@@ -42,7 +42,8 @@ public class ConfessMapping {
         }
     }
 
-    public static void addToCity(String ref, String city) {
+    public static void addToCity(String ref, User user, Confess confess) {
+        String city = user.getCity();
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference indexRef = db.getReference("byCity").child(city);
         indexRef.addValueEventListener(new ValueEventListener() {
@@ -85,9 +86,8 @@ public class ConfessMapping {
                 if(lastIndex == -1) {
                     return;
                 }
-                System.out.println(lastIndex + "+*+*+*+*+*+*+*+*+*+**+*+*+*+*+*+*+*+*+*+*+*+*+*+*+**+*+*+*+*+*+");
                 DatabaseReference insertionRef = db.getReference("byCity").child(city).child(String.valueOf(++lastIndex));
-                insertionRef.setValue(ref);
+                insertionRef.setValue(ref + "/confess/" + user.getCity() + '/' + user.getUniversity() + '/' + confess.getConfessID());
                 DatabaseReference lastIndexUpdateRef = db.getReference("byCity").child(city).child("lastIndex");
                 lastIndexUpdateRef.setValue(lastIndex);
                 System.out.println("maping done for city");
@@ -101,8 +101,9 @@ public class ConfessMapping {
         });
     }
 
-    public static void addToUniversity(String ref, String university) {
+    public static void addToUniversity(String ref, User user, Confess confess) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+        String university = user.getUniversity();
         DatabaseReference indexRef = db.getReference("byUniversity").child(university);
         indexRef.addValueEventListener(new ValueEventListener() {
             int loopBreaker = 0;
@@ -147,7 +148,7 @@ public class ConfessMapping {
                 try {
                     lastIndex = ConfessMapping.MappingOperations.getLastIndex(obj);
                     DatabaseReference insertionRef = db.getReference().child("byUniversity").child(university).child(String.valueOf(++lastIndex));
-                    insertionRef.setValue(ref);
+                    insertionRef.setValue(ref + "/confess/" + user.getCity() + '/' + user.getUniversity() + '/' + confess.getConfessID());
                     DatabaseReference lastIndexUpdateRef = db.getReference().child("byUniversity").child(university).child("lastIndex");
                     lastIndexUpdateRef.setValue(lastIndex);
                     System.out.println("mapping done for university");
@@ -165,7 +166,7 @@ public class ConfessMapping {
     }
 
     //add by time
-    public static void addToRecent(String ref) {
+    public static void addToRecent(String ref, User user, Confess confess) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference indexRef = db.getReference("byTime");
         indexRef.addValueEventListener(new ValueEventListener() {
@@ -210,7 +211,7 @@ public class ConfessMapping {
                 try {
                     lastIndex = ConfessMapping.MappingOperations.getLastIndex(obj);
                     DatabaseReference insertionRef = db.getReference().child("byTime").child(String.valueOf(++lastIndex));
-                    insertionRef.setValue(ref);
+                    insertionRef.setValue(ref + "/confess/" + user.getCity() + '/' + user.getUniversity() + '/' + confess.getConfessID());
                     DatabaseReference lastIndexUpdateRef = db.getReference("byTime").child("lastIndex");
                     lastIndexUpdateRef.setValue(lastIndex);
                     System.out.println("mapping done for time");
@@ -227,13 +228,14 @@ public class ConfessMapping {
         });
     }
 
-    public static void addConfessToAllMap(DatabaseReference snapshot, User user) throws InterruptedException {
-        String ref = snapshot.toString();
-        ConfessMapping.addToRecent(ref);
+    public static void addConfessToAllMap(DatabaseReference snapshot, User user, Confess confess) throws InterruptedException {
+//        String ref = snapshot.getDatabase().toString();
+        String ref = "";
+        ConfessMapping.addToRecent(ref, user, confess);
 //        Thread.currentThread().sleep(1000);
-        ConfessMapping.addToCity(ref, user.getCity());
+        ConfessMapping.addToCity(ref, user, confess);
 //        Thread.currentThread().sleep(1000);
-        ConfessMapping.addToUniversity(ref, user.getUniversity());
+        ConfessMapping.addToUniversity(ref, user, confess);
 //        Thread.currentThread().sleep(1000);
     }
 }

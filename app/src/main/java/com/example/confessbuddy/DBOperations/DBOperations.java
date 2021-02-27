@@ -65,24 +65,19 @@ public class DBOperations {
                     Object obj = snapshot.getValue();
                     System.out.println(obj.toString());
                     User user = User.objectToUser(obj);
+                    String confessID = GenerateUniqueConfessID.genereateUID(user.getUserID());
                     DatabaseReference confessRef = db.getReference("confess")
                             .child(user.getCity())
                             .child(user.getUniversity())
-                            .child(GenerateUniqueConfessID.genereateUID(user.getUserID()));
+                            .child(confessID);
                     Date dateRN = new Date();
-                    confessRef.setValue(new Confess(confessText,user.getCity(),user.getUniversity(),String.valueOf(dateRN.getTime())));
+                    Confess newConfess = new Confess(confessText,user.getCity(),user.getUniversity(),String.valueOf(dateRN.getTime()), confessID);
+                    confessRef.setValue(newConfess);
                     try {
-                        ConfessMapping.addConfessToAllMap(confessRef, user);
+                        ConfessMapping.addConfessToAllMap(confessRef, user, newConfess);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    new Thread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                        }
-                    }).start();
                  }
             }
 

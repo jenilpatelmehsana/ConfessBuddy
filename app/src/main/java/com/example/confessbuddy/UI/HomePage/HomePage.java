@@ -36,44 +36,5 @@ public class HomePage extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         navController = Navigation.findNavController(this, R.id.fragment_layout);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-//        optionView = findViewById(R.id.optionView);
-//        ArrayList<String> options = new ArrayList<>();
-//        options.add("Recent");
-//        options.add("By City");
-//        options.add("By University");
-//        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
-//        optionView.setAdapter(arrayAdapter);
-//        optionView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                switch (position) {
-//                    case 0: {
-//                        gotoRecent();
-//                        break;
-//                    }
-//                    case 1: {
-//                        gotoCity();
-//                        break;
-//                    }
-//                    case 2: {
-//                        gotoUniversity();
-//                        break;
-//                    }
-//                }
-//            }
-//        });
     }
-
-//    private void gotoUniversity() {
-//    }
-//
-//    private void gotoCity() {
-//    }
-//
-//    private void gotoRecent() {
-//        Intent recentActivityIntent = new Intent(this, ConfessByCity.class);
-//        startActivity(recentActivityIntent);
-//        this.finish();
-//    }
-
 }

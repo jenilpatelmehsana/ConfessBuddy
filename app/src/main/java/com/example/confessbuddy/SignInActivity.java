@@ -54,18 +54,6 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
-            Intent createConfessIntent = new Intent(this, CreateConfess.class);
-            startActivity(createConfessIntent);
-            this.finish();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         signInButton = findViewById(R.id.signIn);
@@ -78,5 +66,18 @@ public class SignInActivity extends AppCompatActivity {
                 signInButtonOnClick();
             }
         });
+        if(currentUser != null)
+        {
+            Intent createConfessIntent = new Intent(this, CreateConfess.class);
+            startActivity(createConfessIntent);
+            this.finish();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
     }
 }

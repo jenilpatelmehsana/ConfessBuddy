@@ -1,8 +1,6 @@
 package com.example.confessbuddy.Auth;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
