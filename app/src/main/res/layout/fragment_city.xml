@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".UI.HomePageActivity.City.CityFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cityConfessView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="City" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

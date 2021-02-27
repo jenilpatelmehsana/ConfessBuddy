@@ -45,7 +45,8 @@ public class RecentFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_recent, container, false);
-        recentConfessView = rootView.findViewById(R.id.recentConfessView);
+        recentConfessView = (RecyclerView) rootView.findViewById(R.id.recentConfessView);
+        if(recentConfessView == null) return rootView;
         arrayList = new ArrayList<>();
         recentConfessView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        arrayList = FetchConfessByTime.getList(getContext(), recentConfessView);
