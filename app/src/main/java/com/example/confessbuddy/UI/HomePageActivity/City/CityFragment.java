@@ -11,10 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.confessbuddy.Model.Confess;
 import com.example.confessbuddy.R;
-import com.example.confessbuddy.UI.Adapters.CityConfessAdapter;
-import com.example.confessbuddy.UI.Adapters.RecentConfessAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,18 +20,16 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 public class CityFragment extends Fragment {
 
     private RecyclerView cityConfessView;
     public ArrayList<String> arrayList;
     public CityConfessAdapter arrayAdapter;
+
     public CityFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -51,16 +46,18 @@ public class CityFragment extends Fragment {
         cityConfessView = rootView.findViewById(R.id.cityConfessView);
         arrayList = new ArrayList<>();
         cityConfessView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        arrayAdapter = new CityConfessAdapter(getContext(), arrayList);
+        cityConfessView.setAdapter(arrayAdapter);
+        //Fetching city names from database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         db.getReference("/byCity")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                        HashMap<String, Confess> hm = snapshot.getValue(HashMap.class);
-                        Object hmo = snapshot.getValue();
-                        JSONObject hmoj = (JSONObject) JSONObject.wrap(hmo);
-                        Iterator<String> hm = hmoj.keys();
+                        Object rawObject = snapshot.getValue();
+                        JSONObject cityJSONObject = (JSONObject) JSONObject.wrap(rawObject);
+                        Iterator<String> hm = cityJSONObject.keys();
                         while(hm.hasNext()) {
                             arrayList.add(hm.next());
                         }
@@ -72,8 +69,6 @@ public class CityFragment extends Fragment {
 
                     }
                 });
-        arrayAdapter = new CityConfessAdapter(getContext(), arrayList);
-        cityConfessView.setAdapter(arrayAdapter);
         return rootView;
     }
 }

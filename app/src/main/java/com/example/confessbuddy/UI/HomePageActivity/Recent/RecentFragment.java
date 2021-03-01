@@ -1,6 +1,5 @@
 package com.example.confessbuddy.UI.HomePageActivity.Recent;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.example.confessbuddy.Model.Confess;
 import com.example.confessbuddy.R;
-import com.example.confessbuddy.UI.Adapters.RecentConfessAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confessbuddy.Model.Confess;
-import com.example.confessbuddy.UI.Adapters.RecentConfessAdapter;
+import com.example.confessbuddy.UI.HomePageActivity.Recent.RecentConfessAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;

@@ -22,12 +22,10 @@ public class MainActivity extends AppCompatActivity {
         if(mAuth.getCurrentUser() == null) {
             //go to login page
             Intent loginPageIntent = new Intent(this, LoginPage.class); //TODO don't forget to undo this operation
-//            Intent loginPageIntent = new Intent(this, SignInActivity.class);
             startActivity(loginPageIntent);
             this.finish();
         } else {
             Intent homePageIntent = new Intent(this, HomePage.class); //TODO testing for new confess class
-//            Intent homePageIntent = new Intent(this, CreateConfess.class);
             startActivity(homePageIntent);
             this.finish();
         }
