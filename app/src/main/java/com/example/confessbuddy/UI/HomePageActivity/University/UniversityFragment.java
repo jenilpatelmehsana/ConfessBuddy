@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.function.ToDoubleBiFunction;
 
@@ -28,6 +30,7 @@ public class UniversityFragment extends Fragment {
     private RecyclerView universityConfessView;
     private ArrayList<String> arrayList;
     private UniversityConfessAdapter arrayAdapter;
+    private UniversityConfessAdapter.RecyclerViewOnClickListener listener;
 
     public UniversityFragment() {
     }
@@ -41,12 +44,21 @@ public class UniversityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        listener = new UniversityConfessAdapter.RecyclerViewOnClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                System.out.println(position);
+            }
+        };
         View view = inflater.inflate(R.layout.fragment_university, container, false);
         universityConfessView = view.findViewById(R.id.universityConfessView);
         arrayList = new ArrayList<>();
         universityConfessView.setLayoutManager(new LinearLayoutManager(getContext()));
-        arrayAdapter = new UniversityConfessAdapter(getContext(), arrayList);
+        arrayAdapter = new UniversityConfessAdapter(getActivity(), getContext(), arrayList, listener);
         universityConfessView.setAdapter(arrayAdapter);
+
+//        adding onItemClickListner
+
         //Fetching university names
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         db.getReference("/byUniversity")
@@ -57,7 +69,8 @@ public class UniversityFragment extends Fragment {
                         JSONObject universityJSONObject = (JSONObject) JSONObject.wrap(rawObject);
                         Iterator<String> hm = universityJSONObject.keys();
                         while(hm.hasNext()) {
-                            arrayList.add(hm.next());
+                            Collections.sort(arrayList);
+                            arrayList.add(0, hm.next());
                         }
                         arrayAdapter.notifyDataSetChanged();
                     }
@@ -69,4 +82,5 @@ public class UniversityFragment extends Fragment {
                 });
         return view;
     }
+
 }

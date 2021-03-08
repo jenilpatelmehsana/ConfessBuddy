@@ -4,6 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".UI.Authentication.SignUpPage">
+
+    <TextView
+        android:id="@+id/freezeTextSignUp"
+        android:layout_width="221dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="SignUp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/freezeTextSignUp"
+        tools:layout_editor_absoluteX="172dp">
+
+        <EditText
+            android:id="@+id/signUpEmailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:minHeight="5dp"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/signUpPasswordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:minHeight="5dp"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/singUpCitySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:minHeight="5dp"/>
+
+        <Spinner
+            android:id="@+id/signUpUniversitySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:minHeight="5dp"/>
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SignUp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

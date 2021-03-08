@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.confessbuddy.Auth.LoginAccount;
 import com.example.confessbuddy.R;
+import com.example.confessbuddy.UI.HomePage.HomePage;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginPage extends AppCompatActivity {
@@ -31,15 +32,24 @@ public class LoginPage extends AppCompatActivity {
             Toast.makeText(this, "empty", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            LoginAccount.loginAccount(this, mAuth, email, password);
+            boolean login = LoginAccount.loginAccount(this, mAuth, email, password);
+            if(login == false) {
+                Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent homePageIntent = new Intent(this, HomePage.class);
+            startActivity(homePageIntent);
+            this.finish();
         }
         if(mAuth.getCurrentUser() != null) {
-            Log.d("loginStatus", "loged IN");
+            Log.d("loginStatus", "logged IN");
         }
     }
 
     public void registerUser() {
-        System.out.println("working");
+        Intent signUpIntent = new Intent(this, SignUpPage.class);
+        startActivity(signUpIntent);
+        this.finish();
     }
 
     @Override

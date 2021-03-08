@@ -18,25 +18,32 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginAccount {
 
-    public static void loginAccount(Context currentActivity, FirebaseAuth mAuth, String email, String password) {
+    public static boolean loginAccount(Context currentActivity, FirebaseAuth mAuth, String email, String password) {
+        boolean status = false;
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) currentActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             Log.d("Account Login Status", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                        }
-                        else
-                            {
+                            setStatusTrue(status);
+                        } else {
                             Log.w("Account Login Status", "signInWithEmail:failure", task.getException());
                             Toast.makeText(currentActivity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            }
+                        }
 
                     }
+
+
                 });
+        return status;
     }
+
+    private static void setStatusTrue(boolean status) {
+        status = true;
+    }
+
 
 }

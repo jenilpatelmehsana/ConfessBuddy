@@ -1,5 +1,7 @@
 package com.example.confessbuddy.Model;
 
+import java.util.Comparator;
+
 //TODO
 public class Confess {
 
@@ -8,6 +10,7 @@ public class Confess {
     String university;
     String city;
     String confessID;
+    Long sortingForTime;
 
     public Confess() {
 
@@ -68,5 +71,21 @@ public class Confess {
 
     public void setConfessID(String confessID) {
         this.confessID = confessID;
+    }
+
+    public Long getSortingForTime() {
+        return sortingForTime;
+    }
+
+    public void setSortingForTime(Long sortingForTime) {
+        this.sortingForTime = sortingForTime;
+    }
+
+    public static class ConfessComparator implements Comparator<Confess> {
+
+        @Override
+        public int compare(Confess a, Confess b) {
+            return b.getSortingForTime().compareTo(a.getSortingForTime());
+        }
     }
 }

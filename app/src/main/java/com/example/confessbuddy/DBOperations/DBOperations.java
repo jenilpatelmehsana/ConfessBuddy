@@ -45,7 +45,7 @@ public class DBOperations {
 
 //        TODO adding return flag
         if(mAuth == null) {
-            System.out.println("user not found, exited");
+            Toast.makeText(currentActivity, "You must be logged in to confess something", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -72,6 +72,7 @@ public class DBOperations {
                             .child(confessID);
                     Date dateRN = new Date();
                     Confess newConfess = new Confess(confessText,user.getCity(),user.getUniversity(),String.valueOf(dateRN.getTime()), confessID);
+
                     confessRef.setValue(newConfess);
                     try {
                         ConfessMapping.addConfessToAllMap(confessRef, user, newConfess);

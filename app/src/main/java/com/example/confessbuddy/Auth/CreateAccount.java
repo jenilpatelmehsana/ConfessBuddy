@@ -18,15 +18,21 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class CreateAccount extends AccountAvaibility{
 
-    public static void createNewAccount(Context currentActivity, FirebaseAuth mAuth, String email, String userID, String password, String city, String university) {
+    private static boolean status = false;
 
-//        TODO
+    private static void setStatusTrue() {
+        status = true;
+    }
+
+    public static boolean createNewAccount(Context currentActivity, FirebaseAuth mAuth, String email, String userID, String password, String city, String university) {
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) currentActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d("Account Creation Log", "createUserWithEmail:success");
+                            setStatusTrue();
                         } else {
                             Log.w("Account Creation Log", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(currentActivity, "Authentication failed.",
@@ -49,5 +55,6 @@ public class CreateAccount extends AccountAvaibility{
                 System.out.println("authentication failed");
             }
         });
+        return status;
     }
 }

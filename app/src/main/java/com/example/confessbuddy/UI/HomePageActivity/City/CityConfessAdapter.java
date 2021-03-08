@@ -1,6 +1,7 @@
 package com.example.confessbuddy.UI.HomePageActivity.City;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.confessbuddy.R;
+import com.example.confessbuddy.UI.HomePageActivity.City.CityWise.CityWiseConfess;
 
 import java.util.ArrayList;
 
@@ -34,12 +36,22 @@ public class CityConfessAdapter extends RecyclerView.Adapter<CityConfessAdapter.
     public void onBindViewHolder(@NonNull ConfessForAdapter holder, int position) {
         String city = list.get(position);
         holder.city.setText(city);
+        holder.city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cityWiseIntent = new Intent(context, CityWiseConfess.class);
+                cityWiseIntent.putExtra("cityName", holder.city.getText().toString());
+                context.startActivity(cityWiseIntent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
+
 
     public class ConfessForAdapter extends RecyclerView.ViewHolder {
         TextView city;

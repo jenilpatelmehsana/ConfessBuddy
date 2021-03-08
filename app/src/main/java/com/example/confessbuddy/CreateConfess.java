@@ -1,12 +1,18 @@
 package com.example.confessbuddy;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.util.JsonToken;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,21 +45,25 @@ public class CreateConfess extends AppCompatActivity {
         }
         else {
             Activity activity = this;
-            DBOperations.addConfess(activity, mAuth, confessText);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    DBOperations.addConfess(activity, mAuth, confessText);
                 }
             }).start();
-            Toast.makeText(this, "Confess uploaded successfully", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_confess);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         confessEditText = findViewById(R.id.confessBox);
         submitConfess = findViewById(R.id.submitConfess);

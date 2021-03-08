@@ -11,10 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ConfessBuddy">
+        <activity android:name=".UI.HomePageActivity.City.CityWise.CityWiseConfess"
+            android:parentActivityName=".UI.HomePage.HomePage"></activity>
+        <activity
+            android:name=".UI.HomePageActivity.University.UniversityWise.UniversityConfess"
+            android:parentActivityName=".UI.HomePage.HomePage" />
         <activity android:name=".UI.HomePage.HomePage" />
         <activity android:name=".UI.Authentication.SignUpPage" />
         <activity android:name=".UI.Authentication.LoginPage" />
-        <activity android:name=".CreateConfess" />
+        <activity
+            android:name=".CreateConfess"
+            android:parentActivityName=".UI.HomePage.HomePage" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

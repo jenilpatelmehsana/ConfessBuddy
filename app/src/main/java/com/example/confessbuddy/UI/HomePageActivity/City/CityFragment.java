@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import java.util.Collections;
 import java.util.Iterator;
 
 public class CityFragment extends Fragment {
@@ -44,12 +46,15 @@ public class CityFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_city, container, false);
         cityConfessView = rootView.findViewById(R.id.cityConfessView);
+
         arrayList = new ArrayList<>();
         cityConfessView.setLayoutManager(new LinearLayoutManager(getContext()));
         arrayAdapter = new CityConfessAdapter(getContext(), arrayList);
         cityConfessView.setAdapter(arrayAdapter);
+
         //Fetching city names from database
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+
         db.getReference("/byCity")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -59,6 +64,7 @@ public class CityFragment extends Fragment {
                         JSONObject cityJSONObject = (JSONObject) JSONObject.wrap(rawObject);
                         Iterator<String> hm = cityJSONObject.keys();
                         while(hm.hasNext()) {
+                            Collections.sort(arrayList);
                             arrayList.add(hm.next());
                         }
                         arrayAdapter.notifyDataSetChanged();

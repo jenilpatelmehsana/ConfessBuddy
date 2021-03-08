@@ -18,7 +18,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RecentFragment extends Fragment {
 
@@ -65,13 +67,17 @@ public class RecentFragment extends Fragment {
                                                     .addValueEventListener(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                            arrayList.add(snapshot.getValue(Confess.class));
+                                                            Confess toAdd = snapshot.getValue(Confess.class);
+                                                            toAdd.setSortingForTime(Long.parseLong(toAdd.getConfessDate()));
+                                                            Collections.sort(arrayList, new Confess.ConfessComparator());
+                                                            DateFormat df = DateFormat.getDateInstance();
+                                                            toAdd.setConfessDate(df.format(Long.parseLong(toAdd.getConfessDate())));
+                                                            arrayList.add(0, toAdd);
                                                             arrayAdapter.notifyDataSetChanged();
                                                         }
 
                                                         @Override
                                                         public void onCancelled(@NonNull DatabaseError error) {
-
                                                         }
                                                     });
                                         }
